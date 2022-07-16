@@ -1,0 +1,42 @@
+<div class="widget-sidebar sidebar-search">
+    <h5 class="sidebar-title">Search :</h5>
+    <div class="sidebar-content">
+        <form method="GET" action="{% url 'dash:search' q='q' %}">
+            {% csrf_token %}
+            <div class="input-group">
+                <input name="q" type="text" class="form-control" placeholder="Cari ..." aria-label="Search for...">
+                <span class="input-group-btn">
+                    <button class="btn btn-secondary btn-search" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="widget-sidebar">
+    <h5 class="sidebar-title">Latest</h5>
+    <div class="sidebar-content">
+        <ul class="list-sidebar">
+            {% for n in new %}
+            <li>
+                <a href="{{ n.get_absolute_url }}">{{ n.title }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="widget-sidebar">
+    <h5 class="sidebar-title">Categorys</h5>
+    <div class="sidebar-content">
+        <ul class="list-sidebar">
+            {% for m in menus %}
+            <li>
+                <a href="{{ m.get_absolute_url }}">{{ m.name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

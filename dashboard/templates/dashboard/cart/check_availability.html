@@ -1,0 +1,64 @@
+{% extends 'base/base.html' %}
+{% load my_filter %}
+{% block content %}
+<div class="fh5co-parallax" style="background-image: url('/static/images/image-1.jpg');" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-center fh5co-table">
+                <div class="fh5co-intro fh5co-table-cell">
+                    <h1 class="text-center">{% block page_title %}Available Room{% endblock %}</h1>
+                    <p>Made with love by the fine folks at <a href="http://freehtml5.co">FreeHTML5.co</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="fh5co-blog-section">
+    <div class="container" id="calendar">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col mb-4">
+                        {{ calendar }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a href="{% url 'dash:check_room' %}?month={{ prev_month }}" class="page-link">
+                                        Previous Month
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a href="{% url 'dash:check_room' %}?month={{ next_month }}" class="page-link">
+                                        Next Month
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                {% include 'dashboard/blog/sidebar.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extrajs %}
+<script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
+<script>
+    $(document).ready(function(){
+        window.location.hash = '#calendar';
+    });
+    $('.dropdown-toggle').dropdown()
+</script>
+{% endblock %}

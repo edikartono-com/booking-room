@@ -1,0 +1,119 @@
+{% extends 'base/base.html' %}
+{% load static my_filter %}
+
+{% block add_style %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
+
+{% block content %}
+<div class="fh5co-parallax" style="background-image: url('/static/images/image-1.jpg');" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-center fh5co-table">
+                <div class="fh5co-intro fh5co-table-cell">
+                    <h1 class="text-center">{% block page_title %}Booking{% endblock %}</h1>
+                    <p>Made with love by the fine folks at <a href="http://freehtml5.co">FreeHTML5.co</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="fh5co-blog-section">
+    <div class="container" id="calendar">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    {% for item in cart %}
+                    {% with product=item.product %}
+                    <div class="col-sm-12 mb-4">
+                        <div class="card card-primary border-dark">
+                            <div class="card-header">
+                                <p class="card-title">
+                                    {{ forloop.counter }}.
+                                    <strong>Room : {{ product.type_available.name }}</strong> ({{ item.quantity }} Hari) &nbsp;
+                                    <button value="{% url 'manager:cart_remove' product.id %}" class="delete btn-danger">
+                                        <i class="far fa-trash-alt"></i>
+                                    </button>
+                                </p>
+                            </div>
+                            
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="alert alert-danger">
+                                            Sebelum cekout Room ini masih bisa di booking oleh orang lain. <br>
+                                            Room akan dihapus dari basket setelah 1 jam tidak cekout
+                                        </p>
+                                        <p class="alert alert-info">Silahkan lengkapi data pemesan</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p class="card-text">Room : {{ product.type_available.name }}, Tanggal: {{ product.booking_date_slot }}</p>
+                                        <p class="card-text">Harga : Rp. {{ item.price|my_decimal }}</p>
+                                    </div>
+                                    <div class="col-6">
+                                        {% if product.type_available.image %}
+                                        <img src="{{ product.type_available.image.url }}" class="img-thumbnail" width="250px">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer">
+                                <strong>Sub Total : Rp. {{ item.total_price|my_decimal }}</strong>
+                            </div>
+                        </div>
+                    </div>
+                    {% endwith %}
+                    {% endfor %}
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <p class="card-title">Ringkasan</p>
+                            </div>
+                            <div class="card-body">
+                                <p>Total Tagihan: Rp. {{ cart.get_total_price|my_decimal }}</p>
+                                <p><a href="{% url 'customer:order_create' %}">Pesan</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                {% include 'manager/cart/cart.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extrajs %}
+<script src="{% static 'plugins/popper/popper.min.js' %}"></script>
+<script>
+    $(document).ready(function(){
+        window.location.hash = '#calendar';
+    });
+    $('.dropdown-toggle').dropdown();
+    $(".delete").click(function(){
+        var button=$(this).val();
+        if(confirm('Yakin hapus produk ini?')){
+          $.ajax({
+            type:'POST',
+            url:button,
+            data:{'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val()},
+            success:function(data){
+              alert("Produk sudah dihapus dari cart");
+              window.location.reload();
+            }
+          });
+        }
+      });
+</script>
+{% endblock %}

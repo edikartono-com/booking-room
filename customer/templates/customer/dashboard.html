@@ -1,0 +1,61 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                Available room for booking
+            </div>
+        
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table m-0">
+                        <head>
+                            <tr>
+                                <th>Booking Date</th>
+                            </tr>
+                        </head>
+                        <tbody>
+                            {% for slots in date_list %}
+                            <tr>
+                                <td>{{ slots }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                All slots for the next 30 days
+            </div>
+        
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table m-0">
+                        <head>
+                            <tr>
+                                <th>Booking Date</th>
+                                <th>Room</th>
+                            </tr>
+                        </head>
+                        <tbody>
+                            {% for slots in full_slot %}
+                            <tr>
+                                <td>{{ slots.booking_date }}</td>
+                                <td>{{ slots.rooms_type }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block head_title %}{% endblock %}</title>
+   <!--Made with love by Mutiullah Samim
+    https://bootsnipp.com/snippets/vl4R7 -->
+
+   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   
+   <!--Bootsrap 4 CDN-->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+   
+   <!--Fontawesome CDN-->
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+   
+   <!--Custom styles-->
+   <link rel="stylesheet" type="text/css" href="{% static 'account/css/style.css' %}">
+   {% block extra_head %}{% endblock %}
+</head>
+<body>
+<div class="container">
+	<div class="d-flex justify-content-center h-100">
+		<div class="card">
+			<div class="card-header">
+				<h3>{% block title %}{% endblock %}</h3>
+				{% block social_account %}{% endblock %}
+                {% if messages %}
+                <div class="row">
+                    {% for message in messages %}
+					<div class="alert {{ message.tags }} alert-dismissible">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+						<i class="icon fa fa-check"></i>{{ message|capfirst }}
+					</div>
+					{% endfor %}
+                </div>
+                {% endif %}
+			</div>
+			<div class="card-body">
+                {% block content %}
+                {% endblock %}
+			</div>
+			<div class="card-footer">
+                {% block extra_body %}
+                {% endblock %}
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

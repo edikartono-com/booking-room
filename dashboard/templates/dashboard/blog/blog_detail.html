@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<!-- end:fh5co-header -->
+<div class="fh5co-parallax" style="background-image: url('{{ object.get_image }}');" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-center fh5co-table">
+                <div class="fh5co-intro fh5co-table-cell">
+                    <h1 class="text-center">{{ object.title }}</h1>
+                    <p>Categoty : <a href="{% url 'dash:category' object.category %}">{{ object.category }}</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="fh5co-blog-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="desc">
+                    {{ object.body|safe }}
+                </div>
+            </div>
+            <div class="col-md-4">
+                {% include 'dashboard/blog/sidebar.html' %}
+                <div class="widget-sidebar">
+                    <h5 class="sidebar-title">Related</h5>
+                    <div class="sidebar-content">
+                        <ul class="list-sidebar">
+                            {% for m in related %}
+                            <li>
+                                <a href="{{ m.get_absolute_url }}">{{ m.title }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

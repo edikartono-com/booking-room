@@ -1,0 +1,123 @@
+{% load i18n static jazzmin admin_urls %}
+{% get_jazzmin_settings request as jazzmin_settings %}
+{% get_side_menu as side_menu_list %}
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="{% url 'manager:dashboard' %}" class="brand-link">
+      <img src="{% static "dist/img/AdminLTELogo.png" %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">AdminLTE 3</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          {% if jazzmin_settings.user_avatar %}
+          <img src="{% get_user_avatar request.user %}" width="160px" class="img-circle elevation-2" alt="User Image">
+          {% else %}
+          <i class="fas fa-inverse user-profile fa-user-circle"></i>
+          {% endif %}
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">{{ request.user }}</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item">            
+            <a href="{% url 'customer:dashboard' %}" class="nav-link">            
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
+          {% if request.user.is_staff %}
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <p>DASHBOARD<i class="fas fa-angle-left right"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'admin:dashboard_featured_changelist' %}" class="nav-link">
+                  <i class="nav-icon far fa-circle text-danger"></i>
+                  <p class="text">Keunggulan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'admin:dashboard_blog_changelist' %}" class="nav-link">
+                  <i class="nav-icon far fa-circle text-warning"></i>
+                  <p>Blog Content</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'admin:dashboard_facilities_changelist' %}" class="nav-link">
+                  <i class="nav-icon far fa-circle text-info"></i>
+                  <p>Informational</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-header">MANAGER</li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-hotel"></i>
+              <p>Rooms<i class="fas fa-angle-left right"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'admin:manager_roomtypes_changelist' %}" class="nav-link">
+                  <i class="nav-icon fas fa-door-open"></i>
+                  <p>Room Type</p>
+                </a>
+                <a href="{% url 'admin:manager_availablerooms_changelist' %}" class="nav-link">
+                  <i class="nav-icon fas fa-hourglass-start"></i>
+                  <p>Available Room</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user-tie"></i>
+              <p>Customers<i class="fas fa-angle-left right"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'admin:customer_roombooking_changelist' %}" class="nav-link">
+                  <i class="nav-icon fas fa-user-check"></i>
+                  <p>Booking</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          
+          <li class="nav-header">USER & GROUP</li>
+          <li class="nav-item">
+            <a href="{% url 'admin:auth_user_changelist' %}" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>Users</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'admin:auth_group_changelist' %}" class="nav-link">
+              <i class="nav-icon far fa-object-group"></i>
+              <p>Group</p>
+            </a>
+          </li>
+                    
+                   
+          {% endif %}
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
