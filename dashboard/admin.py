@@ -2,13 +2,14 @@ from django.contrib import admin
 from dashboard.models import (
     AboutUs, ContactUs, Featured,
     Blog, BlogCategories, Facilities,
-    Featured
+    Services
 )
 from dashboard.forms import BlogForm, FacilitiesForm
 
 admin.site.register(AboutUs)
 admin.site.register(ContactUs)
 admin.site.register(Featured)
+admin.site.register(Services)
 
 @admin.register(BlogCategories)
 class BlogCategoriesAdmin(admin.ModelAdmin):

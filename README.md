@@ -1,30 +1,31 @@
-# dj-booking-room
+# Booking Room
+Booking Room projet manajemen pesanan room yang digunakan seseorang memesan sebuah gedung atau ruangan untuk pertemuan rapat dan lainnya.
 
-original project -> https://github.com/tejasjoshi01/fossee_task
+Pengelola menentukan ruangan dan hari yang bisa disewa. (diasumsikan ruangan disewa harian bukan perjam)
+Pemesan ruangan dapat memilih tanggal besok hari dan ruangan yang tersedia. Tidak bisa memesan untuk hari ini apalagi kemarin.
+
+Ruangan yang sedang dalam proses pemesanan tidak tampak oleh calon pemesan lain selama 1 jam. Apabila pemesan tidak menyelesaikan pesanannya dalam waktu 1 jam, maka ruangan tersebut dapat dipesan oleh penyewa lain.
+
+
+# installasi
+1. Membuat virtual environment dan aktivkan.
+2. Clone git clone https://github.com/edikartono-com/booking-room.git
+3. Install pip install -r requirements.txt
+4. Buat directory <code>tmp/cart</code>
+5. Jalankan <code>makemigrations</code> dan <code>migrate</code>
+6. Buat superuser <code>python manage.py createsuperuser</code>
+7. Jalankan runserver <code>python manage.py runserver</code>
+8. Buka halaman http://127.0.0.1:8000 di browser kesayangan kalian
+
+# Next
+1. checkout menuju halaman pembayaran
+2. sedang dipikirkan Hahahahaaaaa
+
+
+# credits
 
 home page template -> https://freehtml5.co/luxe-free-html5-bootstrap-template-for-hotel-website/
 
 login template -> https://bootsnipp.com/snippets/vl4R7
 
 admin : jazzmin
-
-# Booking Room
-booking room adalah sebuah project kecil, yang memungkinkan seseorang memesan sebuah gedung atau ruangan untuk pertemuan rapat dan lainnya.
-
-Pemesan ruangan dapat memilih sesuai tanggal yang mereka inginkan, jika ruang tersedia.
-
-pengelola menambahkan ruangan yang tersedia
-NEXT ->> pengelola gedung hanya melihat dari halaman dashboard, gedung atau ruangan mana saja yang sudah dipesan.
-
-# installasi
-1. git clone https://github.com/edikartono-com/dj-booking-room.git
-2. membuat virtual environment dan aktivkan
-3. install pip install -r requirements.txt
-4. python manage.py runserver
-5. buka halaman 127.0.0.1:8000 di browser kesayangan kalian
-
-admin/pass: admin/admin123
-
-# Next
-1. checkout menuju halaman pembayaran
-2. sedang dipikirkan Hahahahaaaaa

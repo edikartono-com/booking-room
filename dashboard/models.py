@@ -105,3 +105,14 @@ class Blog(models.Model):
     
     def __str__(self):
         return "{0} by {1}".format(self.title, self.author)
+
+class Services(models.Model):
+    icon = models.CharField(
+        max_length=50,
+        help_text='''icon name only. e.g: ti-alarm-clock <br> more icon : <a href="https://themify.me/themify-icons" target="_blank" rel="noopener">themify icons</a>'''
+    )
+    service = models.CharField(max_length=50)
+    desc = models.TextField()
+
+    def __str__(self):
+        return self.service

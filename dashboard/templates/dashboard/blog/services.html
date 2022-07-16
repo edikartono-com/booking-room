@@ -1,0 +1,77 @@
+{% extends 'base/base.html' %}
+
+{% block add_style %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
+
+{% block content %}
+<!-- end:fh5co-header -->
+<div class="fh5co-parallax" style="background-image: url('/static/images/image-1.jpg');" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-center fh5co-table">
+                <div class="fh5co-intro fh5co-table-cell">
+                    <h1 class="text-center">{{ judul }}</h1>
+                    <p>Made with love by the fine folks at <a href="http://freehtml5.co">FreeHTML5.co</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="fh5co-services-section">
+    <div class="container">
+        <div class="row">
+            {% for srv in object_list %}
+            <div class="col-md-4">
+                <div class="services">
+                    <span><i class="{{ srv.icon }}"></i></span>
+                    <div class="desc">
+                        <h3>{{ srv.service }}</h3>
+                        <p>{{ srv.desc|safe }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="row">
+            {% if is_paginated %}
+            <div class="row">
+                <div class="col-md-6">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="page-link">Prev</a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled">
+                                <a href="#" class="page-link">Prev</a>
+                            </li>
+                            {% endif %}
+                    
+                            <li class="page-item disabled active">
+                                <a href="#" class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</a>
+                            </li>
+                    
+                            {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="page-link">Next</a>
+                            </li>
+                    
+                            {% else %}
+                            <li class="page-item disabled">
+                                <a href="#" class="page-link">Next</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

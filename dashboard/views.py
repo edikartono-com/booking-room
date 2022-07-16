@@ -4,7 +4,7 @@ from django.views.generic import DetailView, ListView, TemplateView
 
 from dashboard.models import (
     AboutUs, Blog, BlogCategories,
-    ContactUs, Facilities
+    ContactUs, Facilities, Services
 )
 from manager.models import AvailableRooms, RoomTypes
 
@@ -48,7 +48,7 @@ class RoomAvailableView(TemplateView):
         return month
 
     def get_context_data(self, *args, **kwargs):
-        from manager.utils import Calendar
+        from manager.calendar import Calendar
         
         d = self.get_date(self.request.GET.get('month', None))
         cal = Calendar(self.request, d.year, d.month)
@@ -82,12 +82,10 @@ class BlogList(ListView):
     template_name = 'dashboard/blog/categories.html'
     model = Blog
     paginate_by = 8
-
-    def get_context_data(self, *args, **kwargs):
-        context = super(BlogList, self).get_context_data(*args, **kwargs)
-        context['judul'] = "Read Our Blog"
-        context['for_empty'] = "no post yet"
-        return context
+    extra_context: dict = {
+        "judul": "Read Our Blog",
+        "for_empty": "no post yet"
+    }
 
 class BlogDetail(DetailView):
     template_name = 'dashboard/blog/blog_detail.html'
@@ -118,3 +116,11 @@ class BlogSearch(ListView):
         context['judul'] = "Hasil pencarian : {}".format(self.q)
         context['for_empty'] = "{} tidak ditemukan".format(self.q)
         return context
+
+class ServicesList(ListView):
+    model = Services
+    template_name: str = 'dashboard/blog/services.html'
+    paginate_by: int = 6
+    extra_context: dict = {
+        "judul": "We Offer Services"
+    }
